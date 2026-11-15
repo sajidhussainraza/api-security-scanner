@@ -1,0 +1,18 @@
+API security report: https://api.github.com
+Score: 87/100  Grade: B
+
+  Transport: HTTPS
+  Base Status: 200
+  Headers Seen: ['accept-ranges', 'access-control-allow-origin', 'access-control-expose-headers', 'cache-control', 'connection', 'content-length', 'content-security-policy', 'content-type', 'date', 'etag', 'referrer-policy', 'server', 'strict-transport-security', 'vary', 'x-content-type-options', 'x-frame-options', 'x-github-api-version-selected', 'x-github-edge-region', 'x-github-media-type', 'x-github-request-id', 'x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'x-ratelimit-resource', 'x-ratelimit-used', 'x-xss-protection']
+  Sensitive Paths Probed: 15
+  Sensitive Paths Exposed: 0
+  Error Status: 403
+  Cors Allow Origin: *
+  Allow Header: (none)
+  Rate Limited: True
+
+Findings (2):
+  [MEDIUM] CORS: CORS allows any origin (*). Safe for public read-only data, risky if the API also serves authenticated users.
+        Fix: Restrict Access-Control-Allow-Origin to trusted origins whenever the API uses cookies or tokens.
+  [LOW] Headers: Cache-Control does not forbid caching; authenticated API responses may be stored by intermediaries.
+        Fix: Send Cache-Control: no-store on authenticated responses.
